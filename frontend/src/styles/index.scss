@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.el-table {
+  .el-table__cell {
+    padding: 12px 0;
+  }
+}
+
+.el-dialog {
+  .el-dialog__body {
+    padding: 20px;
+  }
+}
+
+.form-item-margin-bottom {
+  margin-bottom: 16px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.card-wrapper {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+}
+
+.status-tag {
+  &.status-pending {
+    background-color: #909399;
+  }
+  &.status-paid {
+    background-color: #409eff;
+  }
+  &.status-preparing {
+    background-color: #e6a23c;
+  }
+  &.status-delivering {
+    background-color: #67c23a;
+  }
+  &.status-completed {
+    background-color: #67c23a;
+  }
+  &.status-cancelled {
+    background-color: #909399;
+  }
+  &.status-refunding {
+    background-color: #f56c6c;
+  }
+  &.status-refunded {
+    background-color: #909399;
+  }
+}

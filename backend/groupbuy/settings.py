@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'products',
     'activities',
     'orders',
-    'statistics',
+    'statistics.apps.StatisticsConfig',
 ]
 
 MIDDLEWARE = [

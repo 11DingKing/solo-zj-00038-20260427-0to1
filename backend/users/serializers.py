@@ -132,12 +132,21 @@ class LeaderApprovalSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     role_display = serializers.CharField(source='get_role_display', read_only=True)
     leader_status_display = serializers.CharField(source='get_leader_status_display', read_only=True)
+    is_leader = serializers.SerializerMethodField()
+    is_admin = serializers.SerializerMethodField()
     
     class Meta:
         model = User
         fields = [
             'id', 'username', 'email', 'role', 'role_display',
             'phone', 'avatar', 'leader_status', 'leader_status_display',
-            'shop_name', 'shop_address', 'created_at'
+            'shop_name', 'shop_address', 'created_at',
+            'is_leader', 'is_admin',
         ]
         read_only_fields = ['id', 'created_at', 'role', 'leader_status']
+    
+    def get_is_leader(self, obj):
+        return obj.is_leader
+    
+    def get_is_admin(self, obj):
+        return obj.is_admin

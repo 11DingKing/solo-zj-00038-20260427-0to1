@@ -56,6 +56,7 @@
         <p>测试账号：</p>
         <p>管理员：admin / admin123</p>
         <p>团长：leader / leader123</p>
+        <p>团长：tuanzhang001 / abc123</p>
         <p>团员：member / member123</p>
       </div>
     </div>

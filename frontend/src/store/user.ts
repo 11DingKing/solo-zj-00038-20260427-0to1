@@ -10,9 +10,21 @@ export const useUserStore = defineStore('user', () => {
   const userInfo = ref<User | null>(null)
 
   const isLoggedIn = computed(() => !!token.value)
-  const isAdmin = computed(() => userInfo.value?.is_admin || false)
-  const isLeader = computed(() => userInfo.value?.is_leader || false)
-  const isMember = computed(() => userInfo.value?.role === 'member' || false)
+  const isAdmin = computed(() => {
+    if (userInfo.value?.is_admin === true) return true
+    if (userInfo.value?.role === 'admin') return true
+    return false
+  })
+  const isLeader = computed(() => {
+    if (userInfo.value?.is_leader === true) return true
+    if (userInfo.value?.role === 'leader' && userInfo.value?.leader_status === 'approved') return true
+    return false
+  })
+  const isMember = computed(() => {
+    if (userInfo.value?.role === 'member') return true
+    if (!isAdmin.value && !isLeader.value) return true
+    return false
+  })
 
   async function login(username: string, password: string) {
     const res = await request.post<{

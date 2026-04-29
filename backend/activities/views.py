@@ -151,7 +151,7 @@ class GroupBuyActivityViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def joins(self, request, pk=None):
         activity = self.get_object()
-        joins = activity.jins.select_related('user').order_by('-created_at')
+        joins = activity.joins.select_related('user').order_by('-created_at')
         
         page = self.paginate_queryset(joins)
         if page is not None:

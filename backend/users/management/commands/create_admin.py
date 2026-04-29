@@ -9,43 +9,60 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if not User.objects.filter(username='admin').exists():
-            User.objects.create_superuser(
+            admin = User(
                 username='admin',
                 email='admin@example.com',
-                password='admin123',
                 role=User.ROLE_ADMIN,
+                is_staff=True,
+                is_superuser=True,
             )
-            self.stdout.write(self.style.SUCCESS('管理员账号创建成功: admin / admin123'))
+            admin.set_password('admin123')
+            admin.save()
+            self.stdout.write(self.style.SUCCESS(f'管理员账号创建成功: admin / admin123 (role={admin.role}, is_superuser={admin.is_superuser})'))
         else:
-            self.stdout.write(self.style.WARNING('管理员账号已存在'))
+            admin = User.objects.get(username='admin')
+            self.stdout.write(self.style.WARNING(f'管理员账号已存在 (role={admin.role})'))
 
         if not User.objects.filter(username='leader').exists():
-            leader = User.objects.create_user(
+            leader = User(
                 username='leader',
                 email='leader@example.com',
-                password='leader123',
                 role=User.ROLE_LEADER,
                 phone='13800138001',
                 shop_name='邻里团购小铺',
                 shop_address='幸福小区12栋101室',
                 id_card='110101199001011234',
                 leader_status=User.STATUS_APPROVED,
+                is_staff=False,
+                is_superuser=False,
             )
-            self.stdout.write(self.style.SUCCESS('团长账号创建成功: leader / leader123 (已审核)'))
+            leader.set_password('leader123')
+            leader.save()
+            self.stdout.write(self.style.SUCCESS(f'团长账号创建成功: leader / leader123 (role={leader.role}, leader_status={leader.leader_status}, is_leader={leader.is_leader})'))
         else:
-            self.stdout.write(self.style.WARNING('团长账号已存在'))
+            leader = User.objects.get(username='leader')
+            if leader.leader_status != User.STATUS_APPROVED:
+                leader.leader_status = User.STATUS_APPROVED
+                leader.save()
+                self.stdout.write(self.style.WARNING(f'团长账号已存在，已更新审核状态 (role={leader.role}, leader_status={leader.leader_status}, is_leader={leader.is_leader})'))
+            else:
+                self.stdout.write(self.style.WARNING(f'团长账号已存在 (role={leader.role}, leader_status={leader.leader_status}, is_leader={leader.is_leader})'))
 
         if not User.objects.filter(username='member').exists():
-            User.objects.create_user(
+            member = User(
                 username='member',
                 email='member@example.com',
-                password='member123',
                 role=User.ROLE_MEMBER,
                 phone='13800138002',
+                is_staff=False,
+                is_superuser=False,
             )
-            self.stdout.write(self.style.SUCCESS('团员账号创建成功: member / member123'))
+            member.set_password('member123')
+            member.save()
+            self.stdout.write(self.style.SUCCESS(f'团员账号创建成功: member / member123 (role={member.role})'))
         else:
-            self.stdout.write(self.style.WARNING('团员账号已存在'))
+            member = User.objects.get(username='member')
+            self.stdout.write(self.style.WARNING(f'团员账号已存在 (role={member.role})'))
 
         self.stdout.write(self.style.SUCCESS('\n所有测试账号初始化完成！'))
         self.stdout.write(self.style.WARNING('========================================'))

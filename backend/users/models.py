@@ -64,4 +64,4 @@ class User(AbstractUser):
     
     @property
     def is_member(self):
-        return self.role == self.ROLE_MEMBER
+        return self.role == self.ROLE_MEMBER or (self.role == self.ROLE_LEADER and self.leader_status != self.STATUS_APPROVED)

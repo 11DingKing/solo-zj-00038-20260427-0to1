@@ -107,7 +107,7 @@
               v-if="selectedProductId === product.id"
             >
               <el-input-number
-                v-model="quantityMap[product.id] || 1"
+                v-model="quantityMap[product.id]"
                 :min="1"
                 :max="product.limit_per_user || product.available_stock"
                 size="small"
